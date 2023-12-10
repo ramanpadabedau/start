@@ -1,14 +1,14 @@
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello and welcome!");
-        System.out.println("Please, type in format of income file. It could be Plain text, Xml or Json file");
+        FX.launch(FX.class, args);
+
         String file_type = GetInputString();
-        System.out.println("Please, type yes if file is archived, otherwise type no");
+
         String archived_info = GetInputString();
         boolean archived;
         archived = (archived_info.length() == 3);
-        System.out.println("Please, type yes if file is encrypted, otherwise type no");
+
         String encrypted_info = GetInputString();
         boolean encrypted;
         encrypted = (encrypted_info.length() == 3);

@@ -31,6 +31,31 @@ public class zipper {
         zos.closeEntry();
         fis.close();
     }
+    public String unzipSingleFile1(String zipFilePath) {
+        try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFilePath))) {
+            ZipEntry zipEntry = zis.getNextEntry();
+            if (zipEntry != null) {
+                String fileName = zipEntry.getName();
+                String destFilePath = new File(zipFilePath).getParent() + File.separator + fileName;
+
+                try (FileOutputStream fos = new FileOutputStream(destFilePath)) {
+                    byte[] buffer = new byte[1024];
+                    int len;
+                    while ((len = zis.read(buffer)) > 0) {
+                        fos.write(buffer, 0, len);
+                    }
+                }
+
+                System.out.println("Разархивация завершена. Файл сохранен как: " + destFilePath);
+                return destFilePath;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
     public void unzipSingleFile(String zipFilePath, String destFilePath) {
         try {
             FileInputStream fis = new FileInputStream(zipFilePath);
