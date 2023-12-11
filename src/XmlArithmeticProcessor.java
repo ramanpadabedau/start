@@ -21,12 +21,7 @@ public class XmlArithmeticProcessor {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             document = builder.parse(new File(inputFilePath));
-
-            // Обработка арифметических операций
             processArithmeticOperations(document);
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,21 +34,16 @@ public class XmlArithmeticProcessor {
         }
     }
     private static void processArithmeticOperations(Document document) {
-        // Получаем все элементы с тегом "operation"
         NodeList operationNodes = document.getElementsByTagName("operation");
-
         for (int i = 0; i < operationNodes.getLength(); i++) {
             Node operationNode = operationNodes.item(i);
             if (operationNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element operationElement = (Element) operationNode;
                 String expression = operationElement.getTextContent();
-
-                // Проверяем, что выражение не пустое
                 if (!expression.isEmpty()) {
-                    // Вычисляем результат арифметического выражения с использованием exp4j
                     double result = evaluateArithmeticExpression(expression);
 
-                    // Заменяем содержимое элемента результатом
+
                     operationElement.setTextContent(Double.toString(result));
                 }
                 logDocumentContent(document);
@@ -63,26 +53,24 @@ public class XmlArithmeticProcessor {
 
     private static double evaluateArithmeticExpression(String expression) {
         try {
-            // Используем exp4j для вычисления арифметического выражения
             Expression exp = new ExpressionBuilder(expression).build();
             return exp.evaluate();
         } catch (ArithmeticException e) {
-            // Обработка ошибок при вычислении
+
             e.printStackTrace();
-            return 0; // Значение по умолчанию
+            return 0;
         }
     }
 
     private static void logDocumentContent(Document document) {
         try {
-            // Конвертируем содержимое документа в строку для логирования
             StringWriter sw = new StringWriter();
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             transformer.transform(new DOMSource(document), new StreamResult(sw));
             String documentContent = sw.toString();
 
-            // Логируем содержимое
+
             System.out.println("Содержимое документа после обработки:");
             System.out.println(documentContent);
         } catch (Exception e) {

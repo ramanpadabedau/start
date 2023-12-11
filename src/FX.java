@@ -21,8 +21,6 @@ public class FX extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Пример JavaFX");
-
-        // Создаем поле для ввода
         TextField textField = new TextField();
         TextField textField2 = new TextField();
         TextField textField3 = new TextField();
@@ -36,30 +34,24 @@ public class FX extends Application {
         Label label2 = new Label("↓ Введите имя выходного файла ↓");
         Label label3 = new Label("↓       Введите имя архива      ↓");
         ToggleButton toggleButton = new ToggleButton("Зашифрован");
-        // Создаем кнопки
         Button button1 = new Button("Ввод");
         Button button3 = new Button("Архивировать");
         Button button2 = new Button("Ввод");
+        Button button4 = new Button("Зашифровать");
         Button exitButton = new Button("Выход");
-
-        // Устанавливаем обработчики событий для кнопок
         button1.setOnAction(e -> handleButtonClick(textField, "1"));
         button2.setOnAction(e -> handleButtonClick(textField2, "2"));
         button3.setOnAction(e -> handleButtonClick(textField3, "3"));
+        button4.setOnAction(e -> handleButtonClick(textField2, "4"));
         toggleButton.setOnAction(e -> handleToggleButtonClick(toggleButton));
         exitButton.setOnAction((e) -> {
-            System.exit(0); // Завершение приложения
+            System.exit(0);
         });
-
-        // Создаем StackPane и добавляем элементы с явным указанием координат
         Pane pane = new Pane();
-        pane.getChildren().addAll(textField,textField2,textField3, button1,button2,button3, label,label2,label3, toggleButton, exitButton);
-
-
-        // Устанавливаем координаты каждого элемента
-        textField.setLayoutX(30); // X-координата
+        pane.getChildren().addAll(textField,textField2,textField3, button1,button2,button3,button4, label,label2,label3, toggleButton, exitButton);
+        textField.setLayoutX(30);
         textField.setLayoutY(30);
-        textField2.setLayoutX(30); // X-координата
+        textField2.setLayoutX(30);
         textField2.setLayoutY(80);
         textField3.setLayoutX(30);
         textField3.setLayoutY(130);
@@ -75,20 +67,17 @@ public class FX extends Application {
         button2.setLayoutY(80);
         button3.setLayoutX(240);
         button3.setLayoutY(130);
+        button4.setLayoutX(300);
+        button4.setLayoutY(80);
         toggleButton.setLayoutX(300);
         toggleButton.setLayoutY(30);
         exitButton.setLayoutY(570);
         exitButton.setLayoutX(740);
-
-
-        // Создаем сцену, добавляем StackPane и устанавливаем размеры
         Scene scene = new Scene(pane, 800, 600);
-
-        // Отображаем primaryStage
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    // Обработчик событий для кнопок
+
     private  void handleToggleButtonClick(ToggleButton toggleButton){
         toggleValue = true;
     }
@@ -107,6 +96,11 @@ public class FX extends Application {
                 String fileOutNameForZip = textField.getText();
                 zipper zip = new zipper();
                 zip.zipTextFile(fileOutName, fileOutNameForZip);
+                break;
+            case '4':
+                fileOutName = textField.getText();
+                FileEncryption encryptor = new FileEncryption();
+                encryptor.Encrypt(fileOutName);
                 break;
         }
     }

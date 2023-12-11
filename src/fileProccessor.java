@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 
 public class fileProccessor {
     private String fileName;
+    private JsonArithmeticProcessor jsonArithmeticProcessor;
     private PlainText plainText;
     private XmlArithmeticProcessor xmlArithmeticProcessor;
     private String destFilePath;
@@ -32,7 +33,11 @@ public class fileProccessor {
                 xmlArithmeticProcessor = new XmlArithmeticProcessor();
                 xmlArithmeticProcessor.processXmlFile(dads_path + fileName);
                 break;
-
+            case 'n':
+                System.out.println(fileName);
+                jsonArithmeticProcessor = new JsonArithmeticProcessor();
+                jsonArithmeticProcessor.processJsonFile(dads_path + fileName);
+                break;
         }
 
 
@@ -46,7 +51,7 @@ public class fileProccessor {
                 xmlArithmeticProcessor.processOutXML(outFileName);
                 break;
             case 'n':
-
+                jsonArithmeticProcessor.processJsonFileOut(outFileName);
                 break;
         }
     }
