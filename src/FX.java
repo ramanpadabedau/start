@@ -6,8 +6,14 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import java.util.zip.ZipOutputStream;
+import javafx.application.Platform;
+import java.io.FileOutputStream;
+import java.io.File;
 public class FX extends Application {
     private boolean toggleValue;
+    private String fileOutName;
+    private fileProccessor fileP;
     public static void main(String[] args) {
         launch(args);
     }
@@ -18,33 +24,62 @@ public class FX extends Application {
 
         // Создаем поле для ввода
         TextField textField = new TextField();
-        textField.setMinWidth(180);
-        textField.setMaxWidth(180);
-        Label label = new Label("↓ Введите имя входного файла ↓");
+        TextField textField2 = new TextField();
+        TextField textField3 = new TextField();
+        textField2.setMinWidth(185);
+        textField3.setMinWidth(185);
+        textField3.setMaxWidth(185);
+        textField2.setMaxWidth(185);
+        textField.setMinWidth(185);
+        textField.setMaxWidth(185);
+        Label label = new Label ("↓ Введите имя входного файла  ↓");
+        Label label2 = new Label("↓ Введите имя выходного файла ↓");
+        Label label3 = new Label("↓       Введите имя архива      ↓");
         ToggleButton toggleButton = new ToggleButton("Зашифрован");
         // Создаем кнопки
         Button button1 = new Button("Ввод");
-        Button button2 = new Button("Нажми меня 2!");
+        Button button3 = new Button("Архивировать");
+        Button button2 = new Button("Ввод");
+        Button exitButton = new Button("Выход");
 
         // Устанавливаем обработчики событий для кнопок
         button1.setOnAction(e -> handleButtonClick(textField, "1"));
+        button2.setOnAction(e -> handleButtonClick(textField2, "2"));
+        button3.setOnAction(e -> handleButtonClick(textField3, "3"));
         toggleButton.setOnAction(e -> handleToggleButtonClick(toggleButton));
-
+        exitButton.setOnAction((e) -> {
+            System.exit(0); // Завершение приложения
+        });
 
         // Создаем StackPane и добавляем элементы с явным указанием координат
         Pane pane = new Pane();
-        pane.getChildren().addAll(textField, button1, label, toggleButton);
+        pane.getChildren().addAll(textField,textField2,textField3, button1,button2,button3, label,label2,label3, toggleButton, exitButton);
 
 
         // Устанавливаем координаты каждого элемента
         textField.setLayoutX(30); // X-координата
         textField.setLayoutY(30);
+        textField2.setLayoutX(30); // X-координата
+        textField2.setLayoutY(80);
+        textField3.setLayoutX(30);
+        textField3.setLayoutY(130);
         label.setLayoutX(30);
         label.setLayoutY(10);
+        label2.setLayoutX(30);
+        label2.setLayoutY(60);
+        label3.setLayoutX(30);
+        label3.setLayoutY(110);
         button1.setLayoutX(240);
         button1.setLayoutY(30);
+        button2.setLayoutX(240);
+        button2.setLayoutY(80);
+        button3.setLayoutX(240);
+        button3.setLayoutY(130);
         toggleButton.setLayoutX(300);
         toggleButton.setLayoutY(30);
+        exitButton.setLayoutY(570);
+        exitButton.setLayoutX(740);
+
 
         // Создаем сцену, добавляем StackPane и устанавливаем размеры
         Scene scene = new Scene(pane, 800, 600);
@@ -58,8 +93,21 @@ public class FX extends Application {
         toggleValue = true;
     }
     private void handleButtonClick(TextField textField, String buttonNumber) {
-        String fileName = textField.getText();
-        fileProccessor fileP = new fileProccessor(fileName,toggleValue);
-        fileP.Process();
+        switch (buttonNumber.charAt(0)){
+            case '1':
+                String fileName = textField.getText();
+                fileP = new fileProccessor(fileName,toggleValue);
+                fileP.inProcess();
+                break;
+            case '2':
+                fileOutName = textField.getText();
+                fileP.outProcess(fileOutName);
+                break;
+            case '3':
+                String fileOutNameForZip = textField.getText();
+                zipper zip = new zipper();
+                zip.zipTextFile(fileOutName, fileOutNameForZip);
+                break;
+        }
     }
 }

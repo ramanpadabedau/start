@@ -13,6 +13,8 @@ public class zipper {
             addTextFileToZip(new File(textFilePath), zos);
             zos.close();
             fos.close();
+            File file = new File(textFilePath);
+            file.delete();
             System.out.println("Архивация завершена.");
         } catch (IOException e) {
             e.printStackTrace();

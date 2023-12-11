@@ -18,12 +18,7 @@ public class Main {
             order_info = GetInputInteger();
 
         }
-        if("Plain text".equals(file_type)){
-            PlainTextProcessor(archived, encrypted, order_info);
-        }
-        if("Xml".equals(file_type)){
-            XMLProcessor(archived, encrypted, order_info);
-        }
+
     }
     private static String GetInputString(){
         Scanner scanner = new Scanner(System.in);
@@ -35,14 +30,5 @@ public class Main {
         Integer input = scanner.nextInt();
         return  input;
     }
-    private static  void PlainTextProcessor(final boolean archived, final boolean encrypted, final Integer order_info){
-        PlainText myPlainText = new PlainText(archived, encrypted, order_info, "input1.txt" , "output.txt");
-        myPlainText.PlainTextProcessor();
-        zipper Zipp =new zipper();
-        Zipp.zipTextFile("C:\\Users\\ro\\IdeaProjects\\start\\output.txt", "архип.zip");
-    }
-    private static void XMLProcessor(final boolean archived, final boolean encrypted, final Integer order_info){
-        PlainText Xml_as_Plain_text = new PlainText(archived, encrypted, order_info, "input.xml" , "output.xml");
-        Xml_as_Plain_text.PlainTextProcessor();
-    }
+
 }

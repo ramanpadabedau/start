@@ -11,51 +11,22 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 public class PlainText {
-    private final boolean archived;
-    private final boolean encrypted;
-    private final Integer order_info;
-    private boolean order;
     private StringBuilder ProcessedFileContent;
     private StringBuilder fileContent;
     private String filePath;
     private String outFilePath;
 
 
-    public PlainText(boolean archived, boolean encrypted, Integer order_info, String filePath, String outfilePath){
-        this.archived = archived;
-        this.encrypted = encrypted;
+    public PlainText( String filePath){
         this.filePath = filePath;
-        this.outFilePath = outfilePath;
-        this.order_info = order_info;
-        if(order_info != 0){
-            order = true;
-        }
     }
     public void PlainTextProcessor(){
-
-        switch (order_info){
-            case 0:
-                if(archived){
-                    zipper Zipp =new zipper();
-                    Zipp.unzipSingleFile("C:\\Users\\ro\\IdeaProjects\\start\\arhip.zip", "C:\\Users\\ro\\IdeaProjects\\start\\" + filePath );
-                    fileContent = FileReader();
-                }
-                if(encrypted){
-
-                }
-                if(!archived && !encrypted){
-                    fileContent = FileReader();
-                    PlainTextOut(fileContent);
-                }
-                break;
-            case 1:
-
-                break;
-            case 2:
-
-                break;
-        }
+        fileContent = FileReader();
+        PlainTextOut(fileContent);
         ProcessedFileContent = TextWorker1();
+    }
+    public void PlainTextOutProcessor(String outFileName){
+        outFilePath = outFileName;
         PlainTextOut(ProcessedFileContent);
         PlainTextToFileOut();
     }
