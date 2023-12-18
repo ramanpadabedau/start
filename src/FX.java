@@ -33,22 +33,22 @@ public class FX extends Application {
         Label label = new Label ("↓ Введите имя входного файла  ↓");
         Label label2 = new Label("↓ Введите имя выходного файла ↓");
         Label label3 = new Label("↓       Введите имя архива      ↓");
-        ToggleButton toggleButton = new ToggleButton("Зашифрован");
+        Button button5 = new Button("Расшифровать");
         Button button1 = new Button("Ввод");
         Button button3 = new Button("Архивировать");
         Button button2 = new Button("Ввод");
         Button button4 = new Button("Зашифровать");
         Button exitButton = new Button("Выход");
         button1.setOnAction(e -> handleButtonClick(textField, "1"));
+        button5.setOnAction(e -> handleButtonClick(textField, "5"));
         button2.setOnAction(e -> handleButtonClick(textField2, "2"));
         button3.setOnAction(e -> handleButtonClick(textField3, "3"));
         button4.setOnAction(e -> handleButtonClick(textField2, "4"));
-        toggleButton.setOnAction(e -> handleToggleButtonClick(toggleButton));
         exitButton.setOnAction((e) -> {
             System.exit(0);
         });
         Pane pane = new Pane();
-        pane.getChildren().addAll(textField,textField2,textField3, button1,button2,button3,button4, label,label2,label3, toggleButton, exitButton);
+        pane.getChildren().addAll(textField,textField2,textField3, button1,button2,button3,button4,button5, label,label2,label3, exitButton);
         textField.setLayoutX(30);
         textField.setLayoutY(30);
         textField2.setLayoutX(30);
@@ -69,23 +69,19 @@ public class FX extends Application {
         button3.setLayoutY(130);
         button4.setLayoutX(300);
         button4.setLayoutY(80);
-        toggleButton.setLayoutX(300);
-        toggleButton.setLayoutY(30);
+        button5.setLayoutX(300);
+        button5.setLayoutY(30);
         exitButton.setLayoutY(570);
         exitButton.setLayoutX(740);
         Scene scene = new Scene(pane, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-    private  void handleToggleButtonClick(ToggleButton toggleButton){
-        toggleValue = true;
-    }
     private void handleButtonClick(TextField textField, String buttonNumber) {
         switch (buttonNumber.charAt(0)){
             case '1':
                 String fileName = textField.getText();
-                fileP = new fileProccessor(fileName,toggleValue);
+                fileP = new fileProccessor(fileName);
                 fileP.inProcess();
                 break;
             case '2':
@@ -101,6 +97,13 @@ public class FX extends Application {
                 fileOutName = textField.getText();
                 FileEncryption encryptor = new FileEncryption();
                 encryptor.Encrypt(fileOutName);
+                break;
+            case '5':
+                String fileName1 = textField.getText();
+                FileEncryption encryptor1 = new FileEncryption();
+                fileName = encryptor1.Decrypt(fileName1);
+                fileP = new fileProccessor(fileName);
+                fileP.inProcess();
                 break;
         }
     }

@@ -10,10 +10,8 @@ public class fileProccessor {
     private XmlArithmeticProcessor xmlArithmeticProcessor;
     private String destFilePath;
     private String dads_path = "C:\\Users\\ro\\IdeaProjects\\start\\";
-    private boolean encrypted;
-    public fileProccessor (String str, boolean bool){
+    public fileProccessor (String str){
         fileName = str;
-        encrypted = bool;
     }
 
     public void inProcess(){
