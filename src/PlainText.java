@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 public class PlainText {
     private StringBuilder ProcessedFileContent;
+    private StringBuilder ProcessedFileContent1;
     private StringBuilder fileContent;
     private String filePath;
     private String outFilePath;
@@ -23,12 +24,20 @@ public class PlainText {
     public void PlainTextProcessor(){
         fileContent = FileReader();
         PlainTextOut(fileContent);
+        System.out.println("````````````````````" + fileContent);
         ProcessedFileContent = TextWorker1();
+        ProcessedFileContent1 = replaceArithmeticOperations(fileContent.toString());
+        System.out.println("**************" + ProcessedFileContent1);
     }
     public void PlainTextOutProcessor(String outFileName){
         outFilePath = outFileName;
         PlainTextOut(ProcessedFileContent);
         PlainTextToFileOut();
+    }
+    public void PlainTextOutProcessor1(String outFileName){
+        outFilePath = outFileName;
+        PlainTextOut(ProcessedFileContent1);
+        PlainTextToFileOut1();
     }
     private StringBuilder FileReader(){
         StringBuilder fileContent = new StringBuilder();
@@ -67,7 +76,23 @@ public class PlainText {
         }
 
     }
+    public  void PlainTextToFileOut1(){
+        try {
+            File file = new File(outFilePath);
+            FileWriter fileWriter = new FileWriter(file, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(ProcessedFileContent1.toString());
+            bufferedWriter.newLine();
+            bufferedWriter.close();
+            fileWriter.close();
 
+            System.out.println("Запись в файл успешно завершена.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
     private boolean IsNumber(char ch) {
         return ch == '1' ||
                 ch == '2' ||
@@ -141,6 +166,43 @@ public class PlainText {
         }
         return ProcessedFileContent;
     }
+    private static StringBuilder replaceArithmeticOperations(String input) {
+        String regex = "([\\d.]+)\\s*([-+*/])\\s*([\\d.]+)";
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(input);
+        StringBuffer result = new StringBuffer();
+        while (matcher.find()) {
+            double operand1 = Double.parseDouble(matcher.group(1));
+            char operator = matcher.group(2).charAt(0);
+            double operand2 = Double.parseDouble(matcher.group(3));
+
+            double operationResult = performArithmeticOperation(operand1, operator, operand2);
+            matcher.appendReplacement(result, String.valueOf(operationResult));
+        }
+        matcher.appendTail(result);
+        return new StringBuilder(result);
+    }
+
+    private static double performArithmeticOperation(double operand1, char operator, double operand2) {
+        switch (operator) {
+            case '+':
+                return operand1 + operand2;
+            case '-':
+                return operand1 - operand2;
+            case '*':
+                return operand1 * operand2;
+            case '/':
+                if (operand2 != 0) {
+                    return operand1 / operand2;
+                } else {
+                    throw new ArithmeticException("Деление на ноль");
+                }
+            default:
+                throw new IllegalArgumentException("Неподдерживаемая арифметическая операция: " + operator);
+        }
+    }
+
     private double Calculations(StringBuilder str){
         double otvet = 0;
         StringBuilder first_elem = new StringBuilder();

@@ -10,17 +10,28 @@ import java.util.zip.ZipOutputStream;
 import javafx.application.Platform;
 import java.io.FileOutputStream;
 import java.io.File;
+import java.util.Random;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
 public class FX extends Application {
-    private boolean toggleValue;
     private String fileOutName;
     private fileProccessor fileP;
+    private final Random random = new Random();
+    private final Pane root = new Pane();
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Пример JavaFX");
+        primaryStage.setTitle("JavaFX");
         TextField textField = new TextField();
         TextField textField2 = new TextField();
         TextField textField3 = new TextField();
@@ -48,7 +59,7 @@ public class FX extends Application {
             System.exit(0);
         });
         Pane pane = new Pane();
-        pane.getChildren().addAll(textField,textField2,textField3, button1,button2,button3,button4,button5, label,label2,label3, exitButton);
+        root.getChildren().addAll(textField,textField2,textField3, button1,button2,button3,button4,button5, label,label2,label3, exitButton);
         textField.setLayoutX(30);
         textField.setLayoutY(30);
         textField2.setLayoutX(30);
@@ -73,8 +84,15 @@ public class FX extends Application {
         button5.setLayoutY(30);
         exitButton.setLayoutY(570);
         exitButton.setLayoutX(740);
-        Scene scene = new Scene(pane, 800, 600);
+        Scene scene = new Scene(root, 800, 600);
+        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         primaryStage.setScene(scene);
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(0), event -> changeBackgroundColor()),
+                new KeyFrame(Duration.seconds(1))
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
         primaryStage.show();
     }
     private void handleButtonClick(TextField textField, String buttonNumber) {
@@ -106,5 +124,22 @@ public class FX extends Application {
                 fileP.inProcess();
                 break;
         }
+    }
+    private void changeBackgroundColor() {
+        Color lightColor = generateRandomLightColor();
+        root.setStyle("-fx-background-color: " + toHex(lightColor) + ";");
+    }
+    private Color generateRandomLightColor() {
+        double hue = random.nextDouble() * 360; // Случайный оттенок
+        double saturation = random.nextDouble() * 0.3 + 0.7; // Случайная насыщенность от 0.7 до 1.0
+        double brightness = random.nextDouble() * 0.3 + 0.7; // Случайная яркость от 0.7 до 1.0
+        return Color.hsb(hue, saturation, brightness);
+    }
+
+    private String toHex(Color color) {
+        return String.format("#%02X%02X%02X",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
     }
 }

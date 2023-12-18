@@ -44,6 +44,7 @@ public class fileProccessor {
         switch (outFileName.charAt(outFileName.length()-1)){
             case 't':
                 plainText.PlainTextOutProcessor(outFileName);
+                plainText.PlainTextOutProcessor1("12345" + outFileName);
                 break;
             case 'l':
                 xmlArithmeticProcessor.processOutXML(outFileName);
