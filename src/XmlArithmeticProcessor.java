@@ -4,9 +4,6 @@ import java.io.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import net.objecthunter.exp4j.*;
 
 public class XmlArithmeticProcessor {
