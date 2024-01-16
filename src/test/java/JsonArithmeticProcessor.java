@@ -10,12 +10,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class JsonArithmeticProcessor {
-    private static JsonNode rootNode;
-    private static ObjectMapper objectMapper;
+    private JsonNode rootNode;
+    public ObjectMapper objectMapper = new ObjectMapper();
 
-    public static void processJsonFile(String inputFilePath) {
+    public void processJsonFile(String inputFilePath) {
         try {
-            objectMapper = new ObjectMapper();
             rootNode = objectMapper.readTree(new File(inputFilePath));
             processArithmeticOperations(rootNode, null, null);
         } catch (IOException e) {
@@ -23,16 +22,17 @@ public class JsonArithmeticProcessor {
         }
     }
 
-    public static void processJsonFileOut(String outputFilePath) {
+    public void processJsonFileOut(String outputFilePath, FX fxInstance) {
         try {
             objectMapper.writeValue(new File(outputFilePath), rootNode);
             System.out.println("Изменения записаны в файл: " + outputFilePath);
+            fxInstance.setInfoLabelText("Изменения записаны в файл: " + outputFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void processArithmeticOperations(JsonNode node, ObjectNode parentNode, String fieldName) {
+    private void processArithmeticOperations(JsonNode node, ObjectNode parentNode, String fieldName) {
         if (node.getNodeType() == JsonNodeType.OBJECT) {
             ObjectNode objectNode = (ObjectNode) node;
             objectNode.fields().forEachRemaining(entry -> {
@@ -58,7 +58,7 @@ public class JsonArithmeticProcessor {
         }
     }
 
-    private static double evaluateArithmeticExpression(String expression) {
+    public double evaluateArithmeticExpression(String expression) {
         try {
             Expression exp = new ExpressionBuilder(expression).build();
             return exp.evaluate();

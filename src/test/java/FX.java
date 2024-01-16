@@ -10,9 +10,10 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-
 public class FX extends Application {
     private boolean toggleValue;
+    private Label infoLabel = new Label("Информация:");
+
     private String fileOutName;
     private  String zipOutName;
     private fileProccessor fileP;
@@ -24,7 +25,7 @@ public class FX extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Пример JavaFX");
+        primaryStage.setTitle("fx");
         TextField textField = new TextField();
         TextField textField2 = new TextField();
         TextField textField3 = new TextField();
@@ -32,6 +33,7 @@ public class FX extends Application {
         textField3.setMinWidth(185);
         textField3.setMaxWidth(185);
         textField2.setMaxWidth(185);
+        infoLabel = new Label("Информация:");
         textField.setMinWidth(185);
         textField.setMaxWidth(185);
         Label label = new Label ("↓ Введите имя входного файла  ↓");
@@ -54,7 +56,7 @@ public class FX extends Application {
             System.exit(0);
         });
         Pane pane = new Pane();
-        pane.getChildren().addAll(textField,textField2,textField3, button1,button2,button3,button4,button5,button6, label,label2,label3, exitButton);
+        pane.getChildren().addAll(textField,textField2,textField3, button1,button2,button3,button4,button5, label,label2,label3, exitButton, infoLabel);
         textField.setLayoutX(30);
         textField.setLayoutY(30);
         textField2.setLayoutX(30);
@@ -81,6 +83,8 @@ public class FX extends Application {
         button6.setLayoutY(570);
         exitButton.setLayoutY(570);
         exitButton.setLayoutX(740);
+        infoLabel.setLayoutX(30);
+        infoLabel.setLayoutY(180);
         Scene scene = new Scene(pane, 800, 600);
         pane.setBackground(new Background(new BackgroundFill(Color.LAVENDER, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY)));
         primaryStage.setScene(scene);
@@ -90,7 +94,8 @@ public class FX extends Application {
         switch (buttonNumber.charAt(0)){
             case '1':
                 String fileName = textField.getText();
-                fileP = new fileProccessor(fileName);
+                FX fxInstance = new FX();
+                fileP = new fileProccessor(fileName, this);
                 fileP.inProcess();
                 break;
             case '2':
@@ -100,16 +105,14 @@ public class FX extends Application {
             case '3':
                 String fileOutNameForZip = textField.getText();
                 zipper zip = new zipper();
-                zip.zipTextFile(fileOutName, fileOutNameForZip);
+                zip.zipTextFile(fileOutName, fileOutNameForZip, this);
                 zipOutName = fileOutNameForZip;
                 check = true;
                 break;
             case '4':
                 fileOutName = textField.getText();
-                FileEncryption encryptor = new FileEncryption();
+                FileEncryption encryptor = new FileEncryption(this);
                 if(check) {
-                    /*int lastDotIndex = fileOutName.lastIndexOf('.');
-                    fileOutName = fileOutName.substring(0, lastDotIndex + 1) + "zip";8*/
                     System.out.println(zipOutName);
                     encryptor.Encrypt1(zipOutName);
                     break;
@@ -120,9 +123,9 @@ public class FX extends Application {
                 break;
             case '5':
                 String fileName1 = textField.getText();
-                FileEncryption encryptor1 = new FileEncryption();
+                FileEncryption encryptor1 = new FileEncryption(this);
                 fileName = encryptor1.Decrypt(fileName1);
-                fileP = new fileProccessor(fileName);
+                fileP = new fileProccessor(fileName, this);
                 fileP.inProcess();
                 break;
             case '6':
@@ -132,5 +135,8 @@ public class FX extends Application {
                     e.printStackTrace();
                 }
         }
+    }
+    public void setInfoLabelText(String text) {
+        infoLabel.setText(text);
     }
 }

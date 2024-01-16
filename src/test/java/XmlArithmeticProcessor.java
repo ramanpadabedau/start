@@ -7,7 +7,7 @@ import javax.xml.transform.stream.StreamResult;
 import net.objecthunter.exp4j.*;
 
 public class XmlArithmeticProcessor {
-    private static Document document;
+    public static Document document;
     public static void main(String[] args) {
 
     }
@@ -23,9 +23,9 @@ public class XmlArithmeticProcessor {
             e.printStackTrace();
         }
     }
-    public static void processOutXML(String OutFileName){
+    public static void processOutXML(String OutFileName, FX fxInstance){
         try {
-        writeXmlFile(document, OutFileName);
+        writeXmlFile(document, OutFileName, fxInstance);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -75,12 +75,13 @@ public class XmlArithmeticProcessor {
         }
     }
 
-    private static void writeXmlFile(Document document, String outputPath) throws TransformerException {
+    private static void writeXmlFile(Document document, String outputPath, FX fxInstance) throws TransformerException {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(document);
         StreamResult result = new StreamResult(new File(outputPath));
         transformer.transform(source, result);
         System.out.println("Изменения записаны в файл: " + outputPath);
+        fxInstance.setInfoLabelText("Изменения записаны в файл: " + outputPath);
     }
 }

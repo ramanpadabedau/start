@@ -1,0 +1,30 @@
+<component name="libraryTable">
+  <library name="микито">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/src/main/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/android/src/main/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/errorprone/src/main/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/errorprone/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/extTest/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/inlineTest/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/java21/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/junit-jupiter/src/main/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/junit-jupiter/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/junitJupiterExtensionTest/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/junitJupiterInlineMockMakerExtensionTest/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/junitJupiterParallelTest/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/memory-test/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/module-test/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/osgi-test/src/otherBundle/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/osgi-test/src/testBundle/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/osgi-test/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/programmatic-test/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/proxy/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/v5.9.0 source code.zip!/mockito-mockito-e4fa639/subprojects/subclass/src/test/java" />
+    </SOURCES>
+  </library>
+</component>

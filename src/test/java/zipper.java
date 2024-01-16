@@ -6,7 +6,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import java.util.zip.ZipInputStream;
 public class zipper {
-    public  void zipTextFile(String textFilePath, String zipFileName) {
+    public  void zipTextFile(String textFilePath, String zipFileName, FX fxInstance) {
         try {
             FileOutputStream fos = new FileOutputStream(zipFileName);
             ZipOutputStream zos = new ZipOutputStream(fos);
@@ -16,6 +16,7 @@ public class zipper {
             File file = new File(textFilePath);
             file.delete();
             System.out.println("Архивация завершена.");
+            fxInstance.setInfoLabelText("Архивация завершена.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,7 +34,7 @@ public class zipper {
         zos.closeEntry();
         fis.close();
     }
-    public String unzipSingleFile1(String zipFilePath) {
+    public String unzipSingleFile1(String zipFilePath, FX fxInstance) {
         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFilePath))) {
             ZipEntry zipEntry = zis.getNextEntry();
             if (zipEntry != null) {
@@ -49,6 +50,7 @@ public class zipper {
                 }
 
                 System.out.println("Разархивация завершена. Файл сохранен как: " + destFilePath);
+                fxInstance.setInfoLabelText("Разархивация завершена. Файл сохранен как: " + destFilePath);
                 return destFilePath;
             }
         } catch (IOException e) {
